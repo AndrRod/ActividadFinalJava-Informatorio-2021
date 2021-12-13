@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,17 +74,20 @@ public class EventoController {
         return ResponseEntity.ok(eventoServer.crearEvento(evento.get()));
     }
 
-    @GetMapping(value = "rankingEventoId/{id}")
+    @GetMapping(value = "rankingPorEventoId/{id}")
     ResponseEntity<?> rankingEvento(@PathVariable(value = "id") int idEvento){
-//        Optional<Evento> evento = eventoServer.buscarEventoId((long) idEvento);
         List<Voto> voto = votoServer.buscarVotoPorEvento((long) idEvento);
+//        Optional<Evento> evento = eventoServer.buscarEventoId((long) idEvento);
+        HashMap<String, String> map = new HashMap<>();
 
-//        voto.stream().filter(x-> voto.contains(x.getVotoAEmprendimiento().getNombre().)).count();
-//        Map<Emprendimiento, Integer> map = eventoRankingDto.EventosDto(idEvento);
-
-        return ResponseEntity.ok(voto);
-
+        List<String> emprendimientos = new ArrayList<>();
+        for (Voto x : voto) {
+            emprendimientos.add(x.getVotoAEmprendimiento().getNombre());
+        }
+        for(int i= 0; i < emprendimientos.stream().count(); i++){
+            int itera = i;
+            map.put(emprendimientos.get(i), "cantidad de votos " + emprendimientos.stream().filter(f-> f.equals(emprendimientos.get(itera))).count());}
+        return ResponseEntity.ok(map);
     }
-
-//tengo que poner el id del evneto y tiene que salir cuantos votos tiene cada emprendimiento
 }
+
