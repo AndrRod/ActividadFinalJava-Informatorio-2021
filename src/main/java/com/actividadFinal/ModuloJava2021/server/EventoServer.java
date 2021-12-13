@@ -26,6 +26,4 @@ public class EventoServer {
     @Transactional
     public Iterable<Evento> allEventos(){return eventoRepository.findAll();}
 
-
-
 }

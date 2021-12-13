@@ -80,9 +80,9 @@ public class Emprendimiento {
 
     @Getter @Setter
     @JoinColumn(name = "id")
-    @MapKeyColumn(name = "emprendimiento_nombre")
+//    @MapKeyColumn(name = "emprendimiento_nombre")
     @ManyToMany(cascade = CascadeType.ALL)
-    private Collection<Evento> suscriptores;
+    private Collection<Evento> suscriptores = new HashSet<>();
 
 
     public Emprendimiento (String nombre, String descripcion, String contenido, BigInteger recaudacion, Boolean publicado, Collection<Url> url, List<Voto> votoEmprendimiento

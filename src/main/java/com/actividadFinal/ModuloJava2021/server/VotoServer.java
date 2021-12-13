@@ -1,15 +1,10 @@
 package com.actividadFinal.ModuloJava2021.server;
 
-import com.actividadFinal.ModuloJava2021.models.Emprendimiento;
-import com.actividadFinal.ModuloJava2021.models.Evento;
-import com.actividadFinal.ModuloJava2021.models.Usuario;
 import com.actividadFinal.ModuloJava2021.models.Voto;
-import com.actividadFinal.ModuloJava2021.repository.EmprendimientoRepository;
-import com.actividadFinal.ModuloJava2021.repository.EventoRepository;
-import com.actividadFinal.ModuloJava2021.repository.UsuarioRepository;
 import com.actividadFinal.ModuloJava2021.repository.VotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +14,9 @@ public class VotoServer {
 
     @Autowired
     private VotoRepository votoRepository;
-    private UsuarioRepository usuarioRepository;
-    private EventoRepository eventoRepository;
-    private EmprendimientoRepository emprendimientoRepository;
+//    private UsuarioRepository usuarioRepository;
+//    private EventoRepository eventoRepository;
+//    private EmprendimientoRepository emprendimientoRepository;
 //    private VotoCreacionDto votoCreacionDto;
 
 //    public Voto crearVoto(Voto voto, Long username, Long evento, Long emprendimiento){
@@ -36,12 +31,19 @@ public class VotoServer {
 ////        return votoRepository.save(votoNuevo);
 //        return votoNuevo;
 //    }
+    @Transactional
     public Voto crearVoto(Voto voto){return votoRepository.save(voto);}
 
+    @Transactional
     public List<Voto> allVotos(){return votoRepository.findAll();}
 
+    @Transactional
     public List<Voto> buscarVotoPorUsuario(String username){
         return votoRepository.findAll().stream().filter(x-> x.getUsername().getEmail().equals(username)).collect(Collectors.toList());
+    }
+    @Transactional
+    public List<Voto> buscarVotoPorEvento(Long evento){
+        return votoRepository.findAll().stream().filter(x-> x.getEvento().getIdEvento().equals(evento)).collect(Collectors.toList());
     }
 
 //    public long votosUsuario(String usuario){return votoRepository.findAll().stream().filter(p -> p.getUsername().equals(usuario)).count();}
