@@ -1,10 +1,10 @@
 package com.actividadFinal.ModuloJava2021.controller;
 
 
-import com.actividadFinal.ModuloJava2021.DTOS.UsuarioDto;
-import com.actividadFinal.ModuloJava2021.Exception.ExceptionBadRequests;
-import com.actividadFinal.ModuloJava2021.models.Usuario;
-import com.actividadFinal.ModuloJava2021.server.UsuarioServer;
+import com.actividadFinal.ModuloJava2021.dtos.UsuarioDto;
+import com.actividadFinal.ModuloJava2021.entity.Usuario;
+import com.actividadFinal.ModuloJava2021.exception.ErrorHandler;
+import com.actividadFinal.ModuloJava2021.service.UsuarioServer;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,14 @@ import java.util.stream.StreamSupport;
 
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
     private UsuarioServer usuarioServer;
 
-    private UsuarioDto usuarioDto;
+    @Autowired
+    private ErrorHandler errorHandler;
 
     @GetMapping(value = "/")
     public ResponseEntity<?> obtenerTodosUsuarios(){
@@ -47,12 +48,18 @@ public class UsuarioController {
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity<?> guardarUsuario(@RequestBody @Valid Usuario usuario){
+    public ResponseEntity<?> guardarUsuario(@Valid @RequestBody Usuario usuario){
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         String hash = argon2.hash(1, 1024, 1, usuario.getPassword());
         usuario.setPassword(hash);
-        usuarioServer.guardarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDto.UsuarioAUsuarioDto(usuario));
+        try {
+            usuarioServer.guardarUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDto.UsuarioAUsuarioDto(usuario));
+
+        }catch(Exception e){
+////            errorInformacionController.methodArgumentNotValidException(e);}
+            return new ResponseEntity("Ya existe un usuario registrado con el mismo correo", HttpStatus.BAD_REQUEST);}
+
     }
     @PutMapping(value = "/{id}")
     ResponseEntity<?> modifiarUsuario(@RequestBody @Valid Usuario usuarioModif,@PathVariable(value = "id") @Valid int idUsuario){
@@ -70,51 +77,60 @@ public class UsuarioController {
         usuario.get().setProvincia(usuarioModif.getProvincia());
         usuario.get().setPais(usuarioModif.getPais());
         usuario.get().setTipo(usuarioModif.getTipo());
-//        return Respon seEntity.status(HttpStatus.CREATED).body(usuarioServer.guardarUsuario(usuario.get()));
+        try {
         usuarioServer.guardarUsuario(usuario.get());
         return ResponseEntity.ok(UsuarioDto.UsuarioAUsuarioDto(usuario.get()));
+        }catch(Exception e){
+            return new ResponseEntity("Ya existe un usuario registrado con el mismo correo", HttpStatus.BAD_REQUEST);}
+
     }
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Object> eliminarUsuario(@PathVariable(value = "id") int idUsuario){
         if(!usuarioServer.obtUnUsuarioPorId((long) idUsuario).isPresent()){
-//            return ResponseEntity.notFound().build();
                 return new ResponseEntity<>("No se encuentra el usuario por el id ingresado o ingresó un formato valido", HttpStatus.NOT_FOUND);
         }
         usuarioServer.borrarUsuario((long) idUsuario);
         return ResponseEntity.ok("usuario borrado exitosamente");
     }
 
-    @GetMapping(value = "/buscarPorId/{id}")
+        @GetMapping(value = "/buscarPorId/{id}")
     public ResponseEntity<?> obtenerUnUsuarioPorId(@PathVariable(value = "id") int id){
         Optional<Usuario> usuario = usuarioServer.obtUnUsuarioPorId((long) id);
-
-        if (!usuario.isPresent()) {//            return ResponseEntity.notFound().build();
+        if (!usuario.isPresent()) {
             return new ResponseEntity<>("No se encuentra el usuario por el id ingresado o ingreso un formato no valido", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(UsuarioDto.UsuarioAUsuarioDto(usuario.get()));
-
     }
     @GetMapping(value = "/buscarPorCiudad/{id}")
-    public ResponseEntity<?> obtenerUnUsuarioPorCiudad(@PathVariable(value = "id") String ciudad) throws ExceptionBadRequests {
+    public ResponseEntity<?> obtenerUnUsuarioPorCiudad(@PathVariable(value = "id") String ciudad){
         List<Usuario> usuarioLista = usuarioServer.obtUsuariosPorCiudad(ciudad);
         if(!usuarioLista.isEmpty()) {
             List<UsuarioDto> listaDtosUsuario = new ArrayList<>();
             for (Usuario s: usuarioLista) listaDtosUsuario.add(UsuarioDto.UsuarioAUsuarioDto(s));
             return ResponseEntity.ok(listaDtosUsuario);
         }
-//        return ResponseEntity.notFound().build();
         return new ResponseEntity<>("No se encuentra el usuario por la ciudad ingresada o ingresó un formato no valido", HttpStatus.NOT_FOUND);
     }
+
     @GetMapping(value = "/buscarPorFechaPost/{id}")
     public ResponseEntity<?> obtenerUnUsuarioPorFechaPost(@PathVariable(value = "id") @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha){
-        List<Usuario> usuarioLista = usuarioServer.obtUsuariosPorFechaPost(fecha);
-        if (!usuarioLista.isEmpty()) {
-            List<UsuarioDto> listaDtosUsuario = new ArrayList<>();
-            for (Usuario s: usuarioLista) listaDtosUsuario.add(UsuarioDto.UsuarioAUsuarioDto(s));
-            return ResponseEntity.ok(listaDtosUsuario);
-        }
-        //        return ResponseEntity.notFound().build();
+
+            List<Usuario> usuarioLista = usuarioServer.obtUsuariosPorFechaPost(fecha);
+            if (!usuarioLista.isEmpty()) {
+                List<UsuarioDto> listaDtosUsuario = new ArrayList<>();
+                for (Usuario s : usuarioLista) listaDtosUsuario.add(UsuarioDto.UsuarioAUsuarioDto(s));
+                return ResponseEntity.ok(listaDtosUsuario);
+            }
+            //        return ResponseEntity.notFound().build();
             return new ResponseEntity<>("No hay ningun usuario creado posteriormente a la fecha ingresada o ingresó un formato no valido", HttpStatus.NOT_FOUND);
-        }
+
+
+    }
+
+
+
+
+
+
 }
 

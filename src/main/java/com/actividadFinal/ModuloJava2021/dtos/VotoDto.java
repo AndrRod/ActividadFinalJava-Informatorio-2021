@@ -1,7 +1,7 @@
-package com.actividadFinal.ModuloJava2021.DTOS;
+package com.actividadFinal.ModuloJava2021.dtos;
 
-import com.actividadFinal.ModuloJava2021.Enums.VotoGenerado;
-import com.actividadFinal.ModuloJava2021.models.Voto;
+import com.actividadFinal.ModuloJava2021.enums.VotoGenerado;
+import com.actividadFinal.ModuloJava2021.entity.Voto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;

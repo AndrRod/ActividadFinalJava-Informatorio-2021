@@ -1,4 +1,4 @@
-package com.actividadFinal.ModuloJava2021.models;
+package com.actividadFinal.ModuloJava2021.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

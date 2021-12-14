@@ -1,4 +1,4 @@
-package com.actividadFinal.ModuloJava2021.models;
+package com.actividadFinal.ModuloJava2021.entity;
 
 import lombok.Getter;
 import lombok.Setter;

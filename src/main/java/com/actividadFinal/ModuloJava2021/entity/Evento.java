@@ -1,11 +1,10 @@
-package com.actividadFinal.ModuloJava2021.models;
+package com.actividadFinal.ModuloJava2021.entity;
 
-import com.actividadFinal.ModuloJava2021.Enums.EstadoEvento;
+import com.actividadFinal.ModuloJava2021.enums.EstadoEvento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

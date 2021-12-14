@@ -1,6 +1,6 @@
 package com.actividadFinal.ModuloJava2021.repository;
 
-import com.actividadFinal.ModuloJava2021.models.Tags;
+import com.actividadFinal.ModuloJava2021.entity.Tags;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

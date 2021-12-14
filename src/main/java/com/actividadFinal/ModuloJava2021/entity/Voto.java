@@ -1,6 +1,6 @@
-package com.actividadFinal.ModuloJava2021.models;
+package com.actividadFinal.ModuloJava2021.entity;
 
-import com.actividadFinal.ModuloJava2021.Enums.VotoGenerado;
+import com.actividadFinal.ModuloJava2021.enums.VotoGenerado;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

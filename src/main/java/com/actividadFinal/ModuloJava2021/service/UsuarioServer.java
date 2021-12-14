@@ -1,6 +1,6 @@
-package com.actividadFinal.ModuloJava2021.server;
+package com.actividadFinal.ModuloJava2021.service;
 
-import com.actividadFinal.ModuloJava2021.models.Usuario;
+import com.actividadFinal.ModuloJava2021.entity.Usuario;
 import com.actividadFinal.ModuloJava2021.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

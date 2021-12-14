@@ -1,6 +1,6 @@
-package com.actividadFinal.ModuloJava2021.models;
+package com.actividadFinal.ModuloJava2021.entity;
 
-import com.actividadFinal.ModuloJava2021.Enums.TipoUsuario;
+import com.actividadFinal.ModuloJava2021.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,24 +23,24 @@ public class Usuario {
     private Long id;
 
     @Getter @Setter @Column(name = "nombre", nullable = false, length = 50)
-    @NotNull(message = "El nombre no debe ser nulo") @NotBlank(message = "El nombre no debe estar en blanco")
+    @NotNull(message = " no debe ser nulo") @NotBlank(message = " no debe estar en blanco")
     private String nombre;
 
 
     @Getter @Setter @Column(name = "apellido", nullable = false, length = 50)
-    @NotNull(message = "El apellido no debe ser nulo") @NotBlank(message = "El apellido no debe estar en blanco")
+    @NotNull(message = "no debe ser nulo") @NotBlank(message = " no debe estar en blanco")
     private String apellido;
 
 
-    @Email(regexp = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message="{someWay.of.definingCodes}")
+    @Email(regexp = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message="no cumple con los requisitos")
     @Getter @Setter @Column(unique = true, name = "email")
-    @NotNull(message = "El email no debe ser nulo") @NotBlank(message = "El email no debe estar en blanco")
+    @NotNull(message = "no debe ser nulo") @NotBlank(message = "no debe estar en blanco")
     private String email;
 
 //    @JsonIgnore
 //    @Getter(onMethod = @__( @JsonIgnore))
     @Getter @Setter @Column(name = "password", nullable = false)
-    @NotNull(message = "El password no debe ser nulo") @NotBlank(message = "El password no debe estar en blanco")
+    @NotNull(message = "no debe ser nulo") @NotBlank(message = "no debe estar en blanco")
     private  String password;
 
     @CreationTimestamp
@@ -49,15 +49,15 @@ public class Usuario {
     private Date fechaCreacion;
 
     @Getter @Setter @Column(name = "ciudad", nullable = false)
-    @NotNull(message = "El valor ciudad no debe ser nulo") @NotBlank(message = "El valor ciudad no debe estar en blanco")
+    @NotNull(message = "no debe ser nulo") @NotBlank(message = "no debe estar en blanco")
     private String ciudad;
 
     @Getter @Setter @Column(name = "provincia", nullable = false)
-    @NotNull(message = "El valor provincia no debe ser nulo") @NotBlank(message = "El valor provincia no debe estar en blanco")
+    @NotNull(message = "no debe ser nulo") @NotBlank(message = "no debe estar en blanco")
     private String provincia;
 
     @Getter @Setter @Column(name = "pais", nullable = false)
-    @NotNull(message = "El valor pais no debe ser nulo") @NotBlank(message = "El valor pais no debe estar en blanco")
+    @NotNull(message = "no debe ser nulo") @NotBlank(message = "no debe estar en blanco")
     private String pais;
 
 
@@ -65,12 +65,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
 
-
 //    @Getter(onMethod = @__( @JsonIgnore)) @Setter
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JoinColumn(name = "username", nullable = false)
 //    private List<Voto> votosUsuario;
-
 
     public Usuario ( String nom, String ape, String email, String ciudad, String provincia, String pais, TipoUsuario tipo, String password, List<Voto> idUsuarioVoto){
         super();

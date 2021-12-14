@@ -1,6 +1,6 @@
-package com.actividadFinal.ModuloJava2021.DTOS;
+package com.actividadFinal.ModuloJava2021.dtos;
 
-import com.actividadFinal.ModuloJava2021.models.Emprendimiento;
+import com.actividadFinal.ModuloJava2021.entity.Emprendimiento;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,11 +1,10 @@
 package com.actividadFinal.ModuloJava2021.controller;
 
-import com.actividadFinal.ModuloJava2021.DTOS.EventoRankingDto;
-import com.actividadFinal.ModuloJava2021.models.Evento;
-import com.actividadFinal.ModuloJava2021.models.Voto;
+import com.actividadFinal.ModuloJava2021.entity.Evento;
+import com.actividadFinal.ModuloJava2021.entity.Voto;
 import com.actividadFinal.ModuloJava2021.repository.VotoRepository;
-import com.actividadFinal.ModuloJava2021.server.EventoServer;
-import com.actividadFinal.ModuloJava2021.server.VotoServer;
+import com.actividadFinal.ModuloJava2021.service.EventoServer;
+import com.actividadFinal.ModuloJava2021.service.VotoServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -30,7 +26,7 @@ public class EventoController {
     private VotoServer votoServer;
 
     private VotoController votoController;
-    private EventoRankingDto eventoRankingDto;
+
 
     @GetMapping(value = "/")
     public ResponseEntity<?> todosLosEventos(){
@@ -78,16 +74,19 @@ public class EventoController {
     ResponseEntity<?> rankingEvento(@PathVariable(value = "id") int idEvento){
         List<Voto> voto = votoServer.buscarVotoPorEvento((long) idEvento);
 //        Optional<Evento> evento = eventoServer.buscarEventoId((long) idEvento);
-        HashMap<String, String> map = new HashMap<>();
-
+        Map<String, Long> mapRanking = new HashMap<>();
         List<String> emprendimientos = new ArrayList<>();
-        for (Voto x : voto) {
-            emprendimientos.add(x.getVotoAEmprendimiento().getNombre());
-        }
+        for (Voto x : voto) {emprendimientos.add(x.getVotoAEmprendimiento().getNombre());}
         for(int i= 0; i < emprendimientos.stream().count(); i++){
             int itera = i;
-            map.put(emprendimientos.get(i), "cantidad de votos " + emprendimientos.stream().filter(f-> f.equals(emprendimientos.get(itera))).count());}
-        return ResponseEntity.ok(map);
+            mapRanking.put(emprendimientos.get(i), emprendimientos.stream().filter(f-> f.equals(emprendimientos.get(itera))).count());
+        }
+        if(!mapRanking.isEmpty()){
+            mapRanking.values().stream();
+            return ResponseEntity.ok(mapRanking);
+        }
+        return new ResponseEntity<>("No hay votos registrados en este evento o el evento es inexistente", HttpStatus.NOT_FOUND);
+
     }
 }
 

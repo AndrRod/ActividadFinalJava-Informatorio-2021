@@ -1,6 +1,6 @@
-package com.actividadFinal.ModuloJava2021.server;
+package com.actividadFinal.ModuloJava2021.service;
 
-import com.actividadFinal.ModuloJava2021.models.Evento;
+import com.actividadFinal.ModuloJava2021.entity.Evento;
 import com.actividadFinal.ModuloJava2021.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,14 +1,14 @@
 package com.actividadFinal.ModuloJava2021.controller;
 
-import com.actividadFinal.ModuloJava2021.DTOS.VotoDto;
-import com.actividadFinal.ModuloJava2021.models.Emprendimiento;
-import com.actividadFinal.ModuloJava2021.models.Evento;
-import com.actividadFinal.ModuloJava2021.models.Usuario;
-import com.actividadFinal.ModuloJava2021.models.Voto;
+import com.actividadFinal.ModuloJava2021.dtos.VotoDto;
+import com.actividadFinal.ModuloJava2021.entity.Emprendimiento;
+import com.actividadFinal.ModuloJava2021.entity.Evento;
+import com.actividadFinal.ModuloJava2021.entity.Usuario;
+import com.actividadFinal.ModuloJava2021.entity.Voto;
 import com.actividadFinal.ModuloJava2021.repository.EmprendimientoRepository;
 import com.actividadFinal.ModuloJava2021.repository.EventoRepository;
 import com.actividadFinal.ModuloJava2021.repository.UsuarioRepository;
-import com.actividadFinal.ModuloJava2021.server.VotoServer;
+import com.actividadFinal.ModuloJava2021.service.VotoServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/votos")
+@RequestMapping("/voto")
 public class VotoController {
 
     @Autowired

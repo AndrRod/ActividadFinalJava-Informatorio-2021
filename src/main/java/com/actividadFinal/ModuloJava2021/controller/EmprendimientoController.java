@@ -1,9 +1,9 @@
 package com.actividadFinal.ModuloJava2021.controller;
 
-import com.actividadFinal.ModuloJava2021.DTOS.EmprendimientoDto;
-import com.actividadFinal.ModuloJava2021.models.Emprendimiento;
-import com.actividadFinal.ModuloJava2021.server.EmprendimientoServer;
-import com.actividadFinal.ModuloJava2021.server.TagSever;
+import com.actividadFinal.ModuloJava2021.dtos.EmprendimientoDto;
+import com.actividadFinal.ModuloJava2021.entity.Emprendimiento;
+import com.actividadFinal.ModuloJava2021.service.EmprendimientoServer;
+import com.actividadFinal.ModuloJava2021.service.TagSever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

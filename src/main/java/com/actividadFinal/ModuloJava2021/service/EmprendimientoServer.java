@@ -1,7 +1,7 @@
-package com.actividadFinal.ModuloJava2021.server;
+package com.actividadFinal.ModuloJava2021.service;
 
-import com.actividadFinal.ModuloJava2021.models.Emprendimiento;
-import com.actividadFinal.ModuloJava2021.models.Tags;
+import com.actividadFinal.ModuloJava2021.entity.Emprendimiento;
+import com.actividadFinal.ModuloJava2021.entity.Tags;
 import com.actividadFinal.ModuloJava2021.repository.EmprendimientoRepository;
 import com.actividadFinal.ModuloJava2021.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
