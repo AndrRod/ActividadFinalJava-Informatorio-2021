@@ -3,8 +3,8 @@ package com.actividadFinal.ModuloJava2021.controller;
 import com.actividadFinal.ModuloJava2021.entity.Evento;
 import com.actividadFinal.ModuloJava2021.entity.Voto;
 import com.actividadFinal.ModuloJava2021.repository.VotoRepository;
-import com.actividadFinal.ModuloJava2021.service.EventoServer;
-import com.actividadFinal.ModuloJava2021.service.VotoServer;
+import com.actividadFinal.ModuloJava2021.service.EventoService;
+import com.actividadFinal.ModuloJava2021.service.VotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,10 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/evento")
 public class EventoController {
     @Autowired
-    private EventoServer eventoServer;
+    private EventoService eventoService;
     private VotoRepository votoRepository;
     @Autowired
-    private VotoServer votoServer;
+    private VotoService votoService;
 
     private VotoController votoController;
 
@@ -31,7 +31,7 @@ public class EventoController {
     @GetMapping(value = "/")
     public ResponseEntity<?> todosLosEventos(){
         ArrayList<Evento> eventos = (ArrayList<Evento>) StreamSupport
-                .stream(eventoServer.allEventos().spliterator(), false)
+                .stream(eventoService.allEventos().spliterator(), false)
                 .collect(Collectors.toList());
         if(!eventos.isEmpty()){
             return ResponseEntity.ok(eventos);
@@ -42,15 +42,15 @@ public class EventoController {
     @PostMapping(value = "/")
     public ResponseEntity<?> crearEvento (@RequestBody @Valid Evento evento){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(eventoServer.crearEvento(evento));
+        return ResponseEntity.status(HttpStatus.CREATED).body(eventoService.crearEvento(evento));
     }
 
 
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> borrarEvento(@PathVariable(value = "id") int idEvento){
-        if(eventoServer.buscarEventoId((long) idEvento).isPresent()){
-            eventoServer.eliminarEvento((long)idEvento);
+        if(eventoService.buscarEventoId((long) idEvento).isPresent()){
+            eventoService.eliminarEvento((long)idEvento);
             return ResponseEntity.ok("El evento fue eliminado exitosamente");
         }
         return new ResponseEntity<>("No hay eventos identificados con esa id o ingresó un dato invalido", HttpStatus.NOT_FOUND);
@@ -59,7 +59,7 @@ public class EventoController {
 
     @PutMapping(value = "/{id}")
     ResponseEntity<?> modifiarEvento(@RequestBody @Valid Evento eventoModif, @PathVariable(value = "id") @Valid int idEvento){
-        Optional<Evento> evento = eventoServer.buscarEventoId((long) idEvento);
+        Optional<Evento> evento = eventoService.buscarEventoId((long) idEvento);
         if(!evento.isPresent()){
             return new ResponseEntity<>("No se encuentra ningún evento con esa id", HttpStatus.NOT_FOUND);
         }
@@ -67,12 +67,12 @@ public class EventoController {
         evento.get().setDetallesEvento(eventoModif.getDetallesEvento());
         evento.get().setFechaCierre(eventoModif.getFechaCierre());
         evento.get().setPremio(eventoModif.getPremio());
-        return ResponseEntity.ok(eventoServer.crearEvento(evento.get()));
+        return ResponseEntity.ok(eventoService.crearEvento(evento.get()));
     }
 
     @GetMapping(value = "rankingPorEventoId/{id}")
     ResponseEntity<?> rankingEvento(@PathVariable(value = "id") int idEvento){
-        List<Voto> voto = votoServer.buscarVotoPorEvento((long) idEvento);
+        List<Voto> voto = votoService.buscarVotoPorEvento((long) idEvento);
 //        Optional<Evento> evento = eventoServer.buscarEventoId((long) idEvento);
         Map<String, Long> mapRanking = new HashMap<>();
         List<String> emprendimientos = new ArrayList<>();

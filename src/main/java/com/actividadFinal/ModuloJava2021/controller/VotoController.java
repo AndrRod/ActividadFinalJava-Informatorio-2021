@@ -8,7 +8,7 @@ import com.actividadFinal.ModuloJava2021.entity.Voto;
 import com.actividadFinal.ModuloJava2021.repository.EmprendimientoRepository;
 import com.actividadFinal.ModuloJava2021.repository.EventoRepository;
 import com.actividadFinal.ModuloJava2021.repository.UsuarioRepository;
-import com.actividadFinal.ModuloJava2021.service.VotoServer;
+import com.actividadFinal.ModuloJava2021.service.VotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ import java.util.List;
 public class VotoController {
 
     @Autowired
-    private VotoServer votoServer;
+    private VotoService votoService;
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -59,7 +59,7 @@ public class VotoController {
 //        voto.setVotoAEmprendimiento(modifUsuarioDto.getVotoAEmprendimiento());
 
         try {
-            votoServer.crearVoto(votoNuevo);
+            votoService.crearVoto(votoNuevo);
             return ResponseEntity.status(HttpStatus.CREATED).body(VotoDto.VotoAVotoDto(votoNuevo));
 //            return ResponseEntity.status(HttpStatus.CREATED).body(votoServer.crearVoto(voto, idUsuario, idEvento, idEmprendimiento));
 
@@ -71,7 +71,7 @@ public class VotoController {
 
     @GetMapping("/")
     public ResponseEntity<?> todosLosVotos(){
-        List<Voto> votoLista = votoServer.allVotos();
+        List<Voto> votoLista = votoService.allVotos();
         if(!votoLista.isEmpty()){
             List<VotoDto> listaDto = new ArrayList<>();
             for (Voto s: votoLista) listaDto.add(VotoDto.VotoAVotoDto(s));
@@ -82,7 +82,7 @@ public class VotoController {
 
     @GetMapping(value = "buscarPorUsername/{username}")
     public ResponseEntity<?> votosUsername(@PathVariable String username){
-        List<Voto> listaUsernameVoto = votoServer.buscarVotoPorUsuario(username);
+        List<Voto> listaUsernameVoto = votoService.buscarVotoPorUsuario(username);
         if(!listaUsernameVoto.isEmpty()){
             List<VotoDto> listaDto = new ArrayList<>();
             for (Voto s: listaUsernameVoto) listaDto.add(VotoDto.VotoAVotoDto(s));

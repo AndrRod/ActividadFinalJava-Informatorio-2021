@@ -1,11 +1,13 @@
 package com.actividadFinal.ModuloJava2021.dtos;
 
 import com.actividadFinal.ModuloJava2021.entity.Emprendimiento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 public class EmprendimientoDto {
     @Getter @Setter
@@ -25,16 +27,21 @@ public class EmprendimientoDto {
     private Collection tags;
     @Getter @Setter
     private Collection urls;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @Getter @Setter
+    private Date fechaCreacion;
 
-    public EmprendimientoDto(Long id, String nombre, String descripcion, String contenido, BigInteger recaudacion, Boolean publicado, Collection tags, Collection urls){
+    public EmprendimientoDto(Long id, String nombre, String descripcion, String contenido, BigInteger recaudacion, Boolean publicado, Collection tags, Collection urls, Date fechaCreacion){
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.contenido = contenido;
         this.recaudacion = recaudacion;
         this.publicado = publicado;
+        this.fechaCreacion = fechaCreacion;
         this.tags = tags;
         this.urls = urls;
+
     }
     public EmprendimientoDto(){}
     public static EmprendimientoDto EmprendimientoAEmpDto(Emprendimiento s){
@@ -45,10 +52,9 @@ public class EmprendimientoDto {
         dto.setDescripcion(s.getDescripcion());
         dto.setRecaudacion(s.getRecaudacion());
         dto.setPublicado(s.getPublicado());
+        dto.setFechaCreacion(s.getFechaCreacion());
         dto.setTags(s.getTags());
         dto.setUrls(s.getUrls());
-//        dto.setUbicacion("Pais: " + s.getPais() + ", Provincia: " + s.getProvincia() + " y ciudad: " + s.getCiudad() );
-
         return dto;
     }
 }
