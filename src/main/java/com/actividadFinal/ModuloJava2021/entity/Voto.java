@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -20,10 +21,15 @@ public class Voto {
     @Getter @Setter
     private Long idVoto;
 
-    @Getter @Setter
-    @Column(name = "generadoPor", nullable = false)
+    @Setter
+    @Column(name = "generadoPor")
     private VotoGenerado generadoPor;
 
+    @NotNull(message="no puede estar en blanco.")
+    @Enumerated(EnumType.STRING)
+    public VotoGenerado getGeneradoPor() {
+        return generadoPor;
+    }
 
     @CreationTimestamp
     @Getter @Setter
@@ -31,19 +37,18 @@ public class Voto {
     @Column(name = "fechaCreacion")
     private Date fechaCreacion;
 
-
     @Getter @Setter
     @ManyToOne(optional = false)
     @MapKeyColumn(name = "email")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Usuario username;
-//
+
     @Getter @Setter
     @ManyToOne(optional = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //    @JoinColumn(name = "votoAEmprendimiento")
     private Emprendimiento votoAEmprendimiento;
-//
+
     @Getter @Setter
     @ManyToOne(optional = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -51,21 +56,13 @@ public class Voto {
     private Evento evento;
 
     public Voto(VotoGenerado generadoPor){
-//            , Emprendimiento eventoEmprendimiento, Usuario username, Evento evento){
         this.generadoPor = generadoPor;
-//        this.username = username;
-//        this.emprendimientos = eventoEmprendimiento;
-//        this.evento =evento;
     }
     public Voto() {
     }
-
     public static Voto votoCreacion(Voto s, Evento evento, Emprendimiento votoAEmprendimiento, Usuario username){
         Voto dtos = new Voto();
-//        dtos.setIdVoto(s.getIdVoto());
         dtos.setGeneradoPor(s.getGeneradoPor());
-//        dtos.setFechaCreacion(s.getFechaCreacion());
-
         dtos.setUsername(username);
         dtos.setEvento(evento);
         dtos.setVotoAEmprendimiento(votoAEmprendimiento);

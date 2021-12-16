@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -58,10 +59,14 @@ public class Usuario {
     @NotBlank(message = "no debe estar en blanco.")
     private String pais;
 
-
-    @Getter @Setter @Column(name = "tipo", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Setter @Column(name = "tipo")
     private TipoUsuario tipo;
+
+    @NotNull(message="no puede estar en blanco.")
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
 
 //    @Getter(onMethod = @__( @JsonIgnore)) @Setter
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -2,7 +2,6 @@ package com.actividadFinal.ModuloJava2021.controller;
 
 import com.actividadFinal.ModuloJava2021.entity.Evento;
 import com.actividadFinal.ModuloJava2021.entity.Voto;
-import com.actividadFinal.ModuloJava2021.repository.VotoRepository;
 import com.actividadFinal.ModuloJava2021.service.EventoService;
 import com.actividadFinal.ModuloJava2021.service.VotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,40 +12,30 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Controller
 @RequestMapping("/evento")
 public class EventoController {
     @Autowired
     private EventoService eventoService;
-    private VotoRepository votoRepository;
     @Autowired
     private VotoService votoService;
 
-    private VotoController votoController;
-
-
     @GetMapping(value = "/")
     public ResponseEntity<?> todosLosEventos(){
-        ArrayList<Evento> eventos = (ArrayList<Evento>) StreamSupport
-                .stream(eventoService.allEventos().spliterator(), false)
-                .collect(Collectors.toList());
+        List<Evento> eventos = eventoService.allEventos();
+//        ArrayList<Evento> eventos = (ArrayList<Evento>) StreamSupport
+//                .stream(eventoService.allEventos().spliterator(), false)
+//                .collect(Collectors.toList());
         if(!eventos.isEmpty()){
             return ResponseEntity.ok(eventos);
         }
         else return new ResponseEntity<>("no se encuentra agregado ningún evento", HttpStatus.NOT_FOUND);
-
     }
     @PostMapping(value = "/")
-    public ResponseEntity<?> crearEvento (@RequestBody @Valid Evento evento){
-
+    public ResponseEntity<?> crearEvento (@Valid @RequestBody  Evento evento){
         return ResponseEntity.status(HttpStatus.CREATED).body(eventoService.crearEvento(evento));
     }
-
-
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> borrarEvento(@PathVariable(value = "id") int idEvento){
         if(eventoService.buscarEventoId((long) idEvento).isPresent()){
@@ -55,8 +44,6 @@ public class EventoController {
         }
         return new ResponseEntity<>("No hay eventos identificados con esa id o ingresó un dato invalido", HttpStatus.NOT_FOUND);
     }
-
-
     @PutMapping(value = "/{id}")
     ResponseEntity<?> modifiarEvento(@RequestBody @Valid Evento eventoModif, @PathVariable(value = "id") @Valid int idEvento){
         Optional<Evento> evento = eventoService.buscarEventoId((long) idEvento);
@@ -86,7 +73,6 @@ public class EventoController {
             return ResponseEntity.ok(mapRanking);
         }
         return new ResponseEntity<>("No hay votos registrados en este evento o el evento es inexistente", HttpStatus.NOT_FOUND);
-
     }
 }
 
