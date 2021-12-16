@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -50,11 +49,11 @@ public class UsuarioController {
         }
     }
     @PutMapping(value = "/{id}")
-    ResponseEntity<?> modifiarUsuario(@Valid @RequestBody  Usuario usuarioModif, @PathVariable(value = "id", required = false) @Valid int idUsuario, Errors error) {
+    ResponseEntity<?> modifiarUsuario(@Valid @RequestBody  Usuario usuarioModif, @PathVariable(value = "id", required = false) @Valid int idUsuario) {
 
         Optional<Usuario> usuario = usuarioService.obtUnUsuarioPorId((long) idUsuario);
-        if(!usuario.isPresent()){return new ResponseEntity<>("Error: no se encuentra ningún usuario con el id " + idUsuario, HttpStatus.NOT_FOUND);}
 
+        if(!usuario.isPresent()){return new ResponseEntity<>("Error: no se encuentra ningún usuario con el id " + idUsuario, HttpStatus.NOT_FOUND);}
         usuario.get().setApellido(usuarioModif.getApellido());
         usuario.get().setNombre(usuarioModif.getNombre());
         usuario.get().setEmail(usuarioModif.getEmail());
@@ -63,8 +62,8 @@ public class UsuarioController {
         usuario.get().setProvincia(usuarioModif.getProvincia());
         usuario.get().setPais(usuarioModif.getPais());
         usuario.get().setTipo(usuarioModif.getTipo());
-
         try {
+//            usuarioService.modifUsuario((long) idUsuario, usuarioModif);
         usuarioService.guardarUsuario(usuario.get());
         return new ResponseEntity<>(UsuarioDto.UsuarioAUsuarioDto(usuario.get()), HttpStatus.OK);
         }catch(Exception e){

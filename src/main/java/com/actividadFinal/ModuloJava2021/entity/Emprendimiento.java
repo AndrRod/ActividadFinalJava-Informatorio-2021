@@ -78,13 +78,11 @@ public class Emprendimiento {
         this.tags = tags;
         this.suscriptores = suscriptores;
     }
-
     public Emprendimiento() {
     }
-
-
 }
 
+// Con las sgtes lineas de codigo estaba intentando de implementar algo que nunca use:
 //    public void agregarUrl(Url urlIngresado){
 //        if(urls == null) urls = new ArrayList<>();
 //        urls.add(urlIngresado);

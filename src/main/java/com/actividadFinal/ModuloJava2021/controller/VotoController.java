@@ -62,9 +62,7 @@ public class VotoController {
         }catch(Exception x){
             return new ResponseEntity<>("Datos incompletos o erróneos", HttpStatus.BAD_REQUEST);
         }
-
     }
-
     @GetMapping("/")
     public ResponseEntity<?> todosLosVotos(){
         List<Voto> votoLista = votoService.allVotos();
@@ -75,7 +73,6 @@ public class VotoController {
         }
         return new ResponseEntity<>("No hay ningun voto", HttpStatus.NOT_FOUND);
     }
-
     @GetMapping(value = "buscarPorUsername/{username}")
     public ResponseEntity<?> votosUsername(@PathVariable String username){
         List<Voto> listaUsernameVoto = votoService.buscarVotoPorUsuario(username);

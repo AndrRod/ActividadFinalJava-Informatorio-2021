@@ -8,13 +8,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
-
-
 public class UsuarioDto implements Serializable {
-
     @Getter @Setter
     private Long id;
-
     @Getter @Setter
     private String nombre;
     @Getter @Setter
@@ -33,7 +29,6 @@ public class UsuarioDto implements Serializable {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date fechaCreacion;
 
-
     public UsuarioDto( String nom, String ape, String email, String ciudad, String provincia, String pais, TipoUsuario tipo){
             super();
             this.nombre = nom;
@@ -44,9 +39,7 @@ public class UsuarioDto implements Serializable {
             this.pais = pais;
             this.tipo = tipo;
     }
-
     public UsuarioDto(){}
-
     public static UsuarioDto UsuarioAUsuarioDto(Usuario usuario){
             UsuarioDto dto = new UsuarioDto();
             dto.setId(usuario.getId());

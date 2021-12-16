@@ -31,8 +31,5 @@ public class ErrorHandler {
         // devuelve el error a formato json
         ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), errorMessage.toString(), request.getRequestURI());
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
-
     }
-
-
 }

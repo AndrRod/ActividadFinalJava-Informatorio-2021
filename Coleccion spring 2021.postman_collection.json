@@ -371,7 +371,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n    \"idEvento\": 6,\r\n    \"detallesEvento\": \"detalleEvento5\",\r\n    \"fechaCreacion\": \"15-12-2021 20:44:39\",\r\n    \"fechaCierre\": null,\r\n    \"estadoEvento\": \"EN_CURSO\",\r\n    \"premio\": 114111111111111\r\n\r\n    }",
+							"raw": "    {\r\n        \"idEvento\": 3,\r\n        \"detallesEvento\": \"detalleEvento3\",\r\n        \"fechaCreacion\": \"04-12-2021 08:03:00\",\r\n        \"fechaCierre\": \"04-12-2021 08:03:00\",\r\n        \"estadoEvento\": 0,\r\n        \"premio\": 324324233212\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -379,7 +379,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/evento/6",
+							"raw": "http://localhost:8080/evento/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -387,7 +387,7 @@
 							"port": "8080",
 							"path": [
 								"evento",
-								"6"
+								"3"
 							]
 						}
 					},
@@ -398,7 +398,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8080/evento/rankingPorEventoId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"evento",
+								"rankingPorEventoId",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -442,7 +454,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/voto/crearVotoIdUsuario/1/IdEvento/1/IdEmprendimiento/1/StringGeneradoPor/1",
+							"raw": "http://localhost:8080/voto/crearVotoIdUsuario/6/IdEvento/1/IdEmprendimiento/3/StringGeneradoPor/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -451,13 +463,13 @@
 							"path": [
 								"voto",
 								"crearVotoIdUsuario",
-								"1",
+								"6",
 								"IdEvento",
 								"1",
 								"IdEmprendimiento",
-								"1",
+								"3",
 								"StringGeneradoPor",
-								"1"
+								"2"
 							]
 						}
 					},

@@ -25,17 +25,16 @@ public class Usuario {
      @NotBlank(message = " no debe estar en blanco.")
     private String nombre;
 
-
     @Getter @Setter @Column(name = "apellido", nullable = false, length = 50)
     @NotBlank(message = " no debe estar en blanco.")
     private String apellido;
-
 
     @Email(regexp = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message="no cumple con los requisitos")
     @Getter @Setter @Column(unique = true, name = "email")
     @NotBlank(message = "no debe estar en blanco.")
     private String email;
 
+//    servia para que en sea ignorado en el json - finalmente cree un dto para que nosea traido el password
 //    @JsonIgnore
 //    @Getter(onMethod = @__( @JsonIgnore))
     @Getter @Setter @Column(name = "password", nullable = false)
@@ -68,11 +67,6 @@ public class Usuario {
         return tipo;
     }
 
-//    @Getter(onMethod = @__( @JsonIgnore)) @Setter
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "username", nullable = false)
-//    private List<Voto> votosUsuario;
-
     public Usuario ( String nom, String ape, String email, String ciudad, String provincia, String pais, TipoUsuario tipo, String password){
         super();
         this.nombre = nom;
@@ -84,8 +78,12 @@ public class Usuario {
         this.tipo = tipo;
         this.password = password;
     }
-
     public Usuario() {
     }
 }
 
+// Con las sgtes lineas de codigo estaba intentando de implementar algo que nunca use:
+//    @Getter(onMethod = @__( @JsonIgnore)) @Setter
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "username", nullable = false)
+//    private List<Voto> votosUsuario;

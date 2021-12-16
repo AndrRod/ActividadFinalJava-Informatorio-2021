@@ -63,7 +63,7 @@ public class Evento {
     }
 }
 
-
+// Con las sgtes lineas de codigo estaba intentando de implementar algo que nunca use:
 //    @JoinColumn(name = "id")
 //    @MapKeyColumn(name = "emprendimiento_nombre")
 //    @ManyToMany

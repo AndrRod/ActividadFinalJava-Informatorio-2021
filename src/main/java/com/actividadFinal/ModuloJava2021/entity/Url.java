@@ -17,19 +17,14 @@ public class Url {
     @Getter @Setter
     private String name;
 
-//    @Getter @Setter
-//    @ManyToMany(mappedBy = "urls", cascade = CascadeType.ALL)
-//    private Collection<Emprendimiento> emprendimiento = new HashSet();
-
     public Url(String name){
-//            , Collection<Emprendimiento> emprendimientos){
         this.name = name;
-//        this.emprendimiento = emprendimientos;
     }
-
     public Url() {
-
     }
+}
+
+// Con las sgtes lineas de codigo estaba intentando de implementar algo que nunca use:
 //    public void agregarEmprendimiento(Emprendimiento EmpIngresado){
 //        if(emprendimiento == null) emprendimiento = new ArrayList<>();
 //        emprendimiento.add(EmpIngresado);
@@ -39,4 +34,7 @@ public class Url {
 //        emprendimiento.remove(EmpIngresado);
 //        EmpIngresado.setUrls(null);
 //    }
-}
+
+//    @Getter @Setter
+//    @ManyToMany(mappedBy = "urls", cascade = CascadeType.ALL)
+//    private Collection<Emprendimiento> emprendimiento = new HashSet();

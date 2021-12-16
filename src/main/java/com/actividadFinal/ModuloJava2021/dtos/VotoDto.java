@@ -37,10 +37,7 @@ public class VotoDto implements Serializable {
         this.fechaDeCreacion = fechaCreacion;
         this.creadoPor=creadoPor;
     }
-
-
     public VotoDto(){}
-
     public static VotoDto VotoAVotoDto(Voto s){
         VotoDto dto = new VotoDto();
         dto.setId(s.getIdVoto());
@@ -51,8 +48,4 @@ public class VotoDto implements Serializable {
         dto.setCreadoPor(s.getGeneradoPor());
         return dto;
     }
-//    public static List<VotoDto> ListaVotoUsuario(String username){
-//
-//    }
-
 }

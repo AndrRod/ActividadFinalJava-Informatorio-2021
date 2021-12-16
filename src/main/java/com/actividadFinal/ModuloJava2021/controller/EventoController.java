@@ -2,8 +2,11 @@ package com.actividadFinal.ModuloJava2021.controller;
 
 import com.actividadFinal.ModuloJava2021.entity.Evento;
 import com.actividadFinal.ModuloJava2021.entity.Voto;
+import com.actividadFinal.ModuloJava2021.exception.ErrorInfo;
 import com.actividadFinal.ModuloJava2021.service.EventoService;
 import com.actividadFinal.ModuloJava2021.service.VotoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,33 +24,37 @@ public class EventoController {
     @Autowired
     private VotoService votoService;
 
+    Logger logger = LoggerFactory.getLogger(ErrorInfo.class);
+
     @GetMapping(value = "/")
-    public ResponseEntity<?> todosLosEventos(){
+    public ResponseEntity<?> todosLosEventos() {
         List<Evento> eventos = eventoService.allEventos();
 //        ArrayList<Evento> eventos = (ArrayList<Evento>) StreamSupport
 //                .stream(eventoService.allEventos().spliterator(), false)
 //                .collect(Collectors.toList());
-        if(!eventos.isEmpty()){
+        if (!eventos.isEmpty()) {
             return ResponseEntity.ok(eventos);
-        }
-        else return new ResponseEntity<>("no se encuentra agregado ningún evento", HttpStatus.NOT_FOUND);
+        } else return new ResponseEntity<>("no se encuentra agregado ningún evento", HttpStatus.NOT_FOUND);
     }
+
     @PostMapping(value = "/")
-    public ResponseEntity<?> crearEvento (@Valid @RequestBody  Evento evento){
+    public ResponseEntity<?> crearEvento(@Valid @RequestBody Evento evento) {
         return ResponseEntity.status(HttpStatus.CREATED).body(eventoService.crearEvento(evento));
     }
+
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> borrarEvento(@PathVariable(value = "id") int idEvento){
-        if(eventoService.buscarEventoId((long) idEvento).isPresent()){
-            eventoService.eliminarEvento((long)idEvento);
+    public ResponseEntity<Object> borrarEvento(@PathVariable(value = "id") int idEvento) {
+        if (eventoService.buscarEventoId((long) idEvento).isPresent()) {
+            eventoService.eliminarEvento((long) idEvento);
             return ResponseEntity.ok("El evento fue eliminado exitosamente");
         }
         return new ResponseEntity<>("No hay eventos identificados con esa id o ingresó un dato invalido", HttpStatus.NOT_FOUND);
     }
+
     @PutMapping(value = "/{id}")
-    ResponseEntity<?> modifiarEvento(@RequestBody @Valid Evento eventoModif, @PathVariable(value = "id") @Valid int idEvento){
+    ResponseEntity<?> modifiarEvento(@RequestBody @Valid Evento eventoModif, @PathVariable(value = "id") @Valid int idEvento) {
         Optional<Evento> evento = eventoService.buscarEventoId((long) idEvento);
-        if(!evento.isPresent()){
+        if (!evento.isPresent()) {
             return new ResponseEntity<>("No se encuentra ningún evento con esa id", HttpStatus.NOT_FOUND);
         }
         evento.get().setEstadoEvento(eventoModif.getEstadoEvento());
@@ -58,17 +65,19 @@ public class EventoController {
     }
 
     @GetMapping(value = "rankingPorEventoId/{id}")
-    ResponseEntity<?> rankingEvento(@PathVariable(value = "id") int idEvento){
+    ResponseEntity<?> rankingEvento(@PathVariable(value = "id") int idEvento) {
         List<Voto> voto = votoService.buscarVotoPorEvento((long) idEvento);
 //        Optional<Evento> evento = eventoServer.buscarEventoId((long) idEvento);
         Map<String, Long> mapRanking = new HashMap<>();
         List<String> emprendimientos = new ArrayList<>();
-        for (Voto x : voto) {emprendimientos.add(x.getVotoAEmprendimiento().getNombre());}
-        for(int i= 0; i < emprendimientos.stream().count(); i++){
-            int itera = i;
-            mapRanking.put(emprendimientos.get(i), emprendimientos.stream().filter(f-> f.equals(emprendimientos.get(itera))).count());
+        for (Voto x : voto) {
+            emprendimientos.add(x.getVotoAEmprendimiento().getNombre());
         }
-        if(!mapRanking.isEmpty()){
+        for (int i = 0; i < emprendimientos.stream().count(); i++) {
+            int itera = i;
+            mapRanking.put(emprendimientos.get(i), emprendimientos.stream().filter(f -> f.equals(emprendimientos.get(itera))).count());
+        }
+        if (!mapRanking.isEmpty()) {
             mapRanking.values().stream();
             return ResponseEntity.ok(mapRanking);
         }

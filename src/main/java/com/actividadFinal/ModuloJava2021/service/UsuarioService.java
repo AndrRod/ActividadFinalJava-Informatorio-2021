@@ -38,4 +38,29 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);}
     @Transactional
     public void borrarUsuario(Long id){usuarioRepository.deleteById(id);}
+
 }
+// linea de codigo que no utilice porque pude setter un usuario solo con buscar id y crear usuario
+//    public Usuario modifUsuario(Long id, Usuario usuario){
+//        Usuario usuarioAModificar = usuarioRepository.getById(id);
+//        if(usuario.getNombre() != null){
+//            usuarioAModificar.setNombre(usuario.getNombre());
+//        }
+//        if(usuario.getApellido() != null){
+//            usuarioAModificar.setApellido(usuario.getApellido());
+//        }
+//        if(usuario.getEmail() != null) {
+//            usuarioAModificar.setEmail(usuario.getEmail());
+//        }
+//        if(usuario.getCiudad() != null) {
+//            usuarioAModificar.setCiudad(usuario.getCiudad());
+//        }
+//        if(usuario.getProvincia() != null) {
+//            usuarioAModificar.setProvincia(usuario.getProvincia());
+//        }
+//        if(usuario.getPais() != null) {
+//            usuarioAModificar.setPais(usuario.getPais());
+//        }
+//        usuarioAModificar.setFechaCreacion(usuario.getFechaCreacion());
+//        return usuarioRepository.save(usuarioAModificar);
+//    }

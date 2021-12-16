@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 @Service
-public class TagSevice {
+public class TagService {
 
     @Autowired
     private TagRepository tagRepository;
