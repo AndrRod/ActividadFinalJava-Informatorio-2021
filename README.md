@@ -165,7 +165,7 @@ Ejemplo:
             }],
         "urls": [
             {                    
-                "name": "http:/"
+                "name": "http://direccionurldelEmprendimiento.com"
             }
            ]
     }
@@ -224,7 +224,7 @@ Ejemplo:
 	http://localhost:8080/evento/{id}
 
 
-## 3.Búsqueda de Evento:
+## 3. Búsqueda de Evento:
 
 Busqueda por Ranking (colocando el id del evento se desplega un ranking de los emprendimientos que participaron en el evento y la cantidad de votos de cada uno en el evento):
 
@@ -250,16 +250,18 @@ Aclaración: para el tipo de Voto generado se creo un ENUM:
     }
 
 
-### Listado de votos
+### 1. Listado de votos
 
     http://localhost:8080/voto/
 
-### POST
+### 2. POST
+
+Para crear un voto será necesario ingresar en el siguiente orden: id del Usuario, Id del Evento, Id del Emprendimiento, y Id del Tipo de Voto (por mobile, web, servicio)
 
 	http://localhost:8080/voto/crearVotoIdUsuario/{idUsuario}/IdEvento/{idEvento}/IdEmprendimiento/{idEmprendimiento}/StringGeneradoPor/{idVotoGenerado}
 
 
-### Búsqueda de Voto por Usuario:
+### 3. Búsqueda de Voto por Usuario:
 
     http://localhost:8080/voto/buscarPorUsername/{email}
 
@@ -268,11 +270,14 @@ Ejemplo:
     http://localhost:8080/voto/buscarPorUsername/a@gmail.com
 
 
-## 14 PENDIENTES:
+## PENDIENTES:
 
 - Captar de Mejor manera los errores.
 - Tests verificando posibles erroes usando herramientas como JUnit y Mockito
 
 
 
-Hecho por :raising_hand_man: [Andres Rodriguez](https://app.sendgrid.com/ "Andres Rodriguez"). 🎁
+
+
+
+Hecho por :raising_hand_man: [Andres Rodriguez](https://github.com/AndrRod/ "Andres Rodriguez") 🎁
