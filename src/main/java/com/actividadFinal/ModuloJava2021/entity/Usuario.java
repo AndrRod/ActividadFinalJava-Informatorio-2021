@@ -11,6 +11,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.*;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 @Table(name = "usuario")
@@ -18,11 +25,11 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter @Column(unique = true, nullable = false, name = "id")
+    @Getter @Setter @Column(unique = true, nullable = false, name = "id")    
     private Long id;
 
     @Getter @Setter @Column(name = "nombre", nullable = false, length = 50)
-     @NotBlank(message = " no debe estar en blanco.")
+    @NotBlank(message = " no debe estar en blanco.")
     private String nombre;
 
     @Getter @Setter @Column(name = "apellido", nullable = false, length = 50)
@@ -66,9 +73,14 @@ public class Usuario {
     public TipoUsuario getTipo() {
         return tipo;
     }
+    @Setter @Column(name = "tipo")
+    @OneToMany(mappedBy = "username", cascade = CascadeType.PERSIST)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    protected Set<Voto> UsuarioVotos = new HashSet<>();    
 
-    public Usuario ( String nom, String ape, String email, String ciudad, String provincia, String pais, TipoUsuario tipo, String password){
+    public Usuario (Long id, String nom, String ape, String email, String ciudad, String provincia, String pais, TipoUsuario tipo, String password){
         super();
+        this.id = id;
         this.nombre = nom;
         this.apellido = ape;
         this.email = email;

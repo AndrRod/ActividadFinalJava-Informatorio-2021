@@ -2,6 +2,7 @@ package com.actividadFinal.ModuloJava2021.controller;
 
 
 import com.actividadFinal.ModuloJava2021.dtos.UsuarioDto;
+//import com.actividadFinal.ModuloJava2021.entity.Usuario;
 import com.actividadFinal.ModuloJava2021.entity.Usuario;
 import com.actividadFinal.ModuloJava2021.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -36,7 +37,7 @@ public class UsuarioController {
             for (Usuario s: usuarios) listaDtosUsuario.add(UsuarioDto.UsuarioAUsuarioDto(s));
             return ResponseEntity.ok(listaDtosUsuario);
         }
-        return new ResponseEntity<>("No existe ningún usuario agregado", HttpStatus.NOT_FOUND);
+        return new   ResponseEntity<>("No existe ningún usuario agregado", HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(value = "/")

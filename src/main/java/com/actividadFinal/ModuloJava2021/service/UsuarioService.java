@@ -1,5 +1,4 @@
 package com.actividadFinal.ModuloJava2021.service;
-
 import com.actividadFinal.ModuloJava2021.entity.Usuario;
 import com.actividadFinal.ModuloJava2021.repository.UsuarioRepository;
 import de.mkammerer.argon2.Argon2;
@@ -19,6 +18,7 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
     @Transactional(readOnly = true)
 //    public Iterable<Usuario> obtUsuarios(){return usuarioRepository.findAll();}
     public List<Usuario> obtUsuarios(){return usuarioRepository.findAll();}

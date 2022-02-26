@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,21 +41,22 @@ public class Voto {
     private Date fechaCreacion;
 
     @Getter @Setter
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)        
     @MapKeyColumn(name = "email")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario username;
 
     @Getter @Setter
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @JoinColumn(name = "votoAEmprendimiento")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Emprendimiento votoAEmprendimiento;
 
     @Getter @Setter
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @JoinColumn(name = "votoEnEvento")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Evento evento;
 
     public Voto(VotoGenerado generadoPor){

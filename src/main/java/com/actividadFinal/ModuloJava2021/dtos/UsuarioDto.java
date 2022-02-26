@@ -1,13 +1,12 @@
 package com.actividadFinal.ModuloJava2021.dtos;
-
 import com.actividadFinal.ModuloJava2021.entity.Usuario;
 import com.actividadFinal.ModuloJava2021.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
+
 public class UsuarioDto implements Serializable {
     @Getter @Setter
     private Long id;
